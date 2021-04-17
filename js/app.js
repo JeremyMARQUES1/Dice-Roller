@@ -1,14 +1,10 @@
-var diceDiv = document.createElement('div');
+var diceNumber = parseInt(prompt('Combien de dés souhaitez-vous lancer?'), 10);
 
-diceDiv.classList.add('dice');
-
-var player = document.getElementById('player');
-
-player.appendChild(diceDiv);
-
+// Création de l'objet dice.
 dice = {
     min: 1,
     max: 6,
+    // Fonction générant un entier aléatoire.
     getRandomNumber: function (min, max) {
         min = Math.ceil(min);
         max = Math.floor(max);
@@ -16,25 +12,29 @@ dice = {
         console.log(randomNumber);
         return randomNumber;
     },
-    diceRoll: function() {
-        var diceResult = dice.getRandomNumber(dice.min, dice.max);
-        if (diceResult === dice.min) {
-            diceDiv.style.backgroundPosition = "0%";
-        } else if (diceResult === dice.min+1) {
-            diceDiv.style.backgroundPosition = "20%";
-        } else if (diceResult === dice.min+2) {
-            diceDiv.style.backgroundPosition = "40%";
-        } else if (diceResult === dice.min+3) {
-            diceDiv.style.backgroundPosition = "60%";
-        } else if (diceResult === dice.min+4) {
-            diceDiv.style.backgroundPosition = "80%";
-        } else {
-            diceDiv.style.backgroundPosition = "100%";
+    diceRoll: function () {
+        // Boucle permettant de générer autant de dés que demandé.
+        for (var count = 0; count < diceNumber; count++) {
+            // Création du dé player.
+            var diceDiv = document.createElement('div');
+            diceDiv.classList.add('dice');
+            var player = document.getElementById('player');
+            player.appendChild(diceDiv);
+            // Résultat du dé player.
+            var diceResult = dice.getRandomNumber(dice.min, dice.max);
+            // Décalage du sprite de 20% à chaque fois que le résultat du dé player prend 1.
+            diceDiv.style.backgroundPosition = ((diceResult - 1) * 20).toString() + '%';
+            
+            // Création du dé dealer.
+            var diceDiv2 = document.createElement('div');
+            diceDiv2.classList.add('dice');
+            player = document.getElementById('dealer');
+            dealer.appendChild(diceDiv2);
+            // Résultat du dé dealer.
+            var diceResult = dice.getRandomNumber(dice.min, dice.max);
+            // Décalage du sprite de 20% à chaque fois que le résultat du dé dealer prend 1.
+            diceDiv2.style.backgroundPosition = ((diceResult - 1) * 20).toString() + '%';
         }
-    }
+    },
 }
-
-var diceNumber = parseInt(prompt('Combien de dés souhaitez-vous lancer?'), 10);
-for (var count = 0; count < diceNumber; count++) {
-    dice.diceRoll();
-}
+dice.diceRoll();
