@@ -7,3 +7,7 @@ Let's see if you can beat the computer !
 Player side: Left.  
 
 Computer side: Right.
+
+Preview: 
+
+![Preview](dice-roller.jpg)
